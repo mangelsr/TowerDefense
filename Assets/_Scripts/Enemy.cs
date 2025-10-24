@@ -4,14 +4,20 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] GameObject objective;
     [SerializeField] int health = 75;
     [SerializeField] int weakThreshold = 25;
-
+    GameObject objective;
     Animator animator;
 
     void Awake()
     {
+        objective = GameObject.FindGameObjectWithTag("Objective");
+        if (objective == null)
+        {
+            Debug.LogError("Objective not found");
+            return;
+        }
+
         GetComponent<NavMeshAgent>().SetDestination(objective.transform.position);
         animator = GetComponent<Animator>();
         animator.SetBool("IsMoving", true);
@@ -23,6 +29,7 @@ public class Enemy : MonoBehaviour
         {
             animator.SetBool("IsMoving", false);
             animator.SetTrigger("OnObjectiveReached");
+            gameObject.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 
@@ -33,7 +40,7 @@ public class Enemy : MonoBehaviour
             animator.SetTrigger("OnObjectiveDestroyed");
             return;
         }
-        objective.GetComponent<Objective>().ReceiveDamage(40);
+        objective.GetComponent<Objective>().ReceiveDamage(5);
     }
 
     public void ReceiveDamage(int damage = 5)
