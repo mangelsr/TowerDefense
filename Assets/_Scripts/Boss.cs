@@ -3,12 +3,19 @@ using UnityEngine.AI;
 
 public class Boss : MonoBehaviour
 {
-    [SerializeField] GameObject objective;
-    [SerializeField] int health = 100;
+    [SerializeField] private int health = 100;
+    GameObject objective;
     Animator animator;
 
-    void Start()
+    void Awake()
     {
+        objective = GameObject.FindGameObjectWithTag("Objective");
+        if (objective == null)
+        {
+            Debug.LogError("Objective not found");
+            return;
+        }
+
         GetComponent<NavMeshAgent>().SetDestination(objective.transform.position);
         animator = GetComponent<Animator>();
         animator.SetBool("IsMoving", true);
@@ -20,6 +27,7 @@ public class Boss : MonoBehaviour
         {
             animator.SetBool("IsMoving", false);
             animator.SetTrigger("OnObjectiveReached");
+            gameObject.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 
