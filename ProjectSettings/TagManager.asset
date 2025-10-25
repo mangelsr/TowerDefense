@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Objective
   - Platform
+  - GameManager
   layers:
   - Default
   - TransparentFX

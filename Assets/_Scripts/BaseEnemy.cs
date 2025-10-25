@@ -6,10 +6,12 @@ public class BaseEnemy : MonoBehaviour, IAttackable, IAttacker
     [SerializeField] protected int health = 50;
     [SerializeField] protected int defaultReceivedDamage = 5;
     [SerializeField] protected int defaultDealtDamage = 5;
+    [SerializeField] protected int resourcesToAdd = 200;
 
-
-    GameObject objective;
-    Animator animator;
+    private GameObject objective;
+    private Animator animator;
+    protected GameManager gameManager;
+    private EnemySpawner enemySpawner;
 
     void OnEnable()
     {
@@ -17,6 +19,20 @@ public class BaseEnemy : MonoBehaviour, IAttackable, IAttacker
         if (objective == null)
         {
             Debug.LogError("Objective not found");
+            return;
+        }
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        if (objective == null)
+        {
+            Debug.LogError("GameManager not found");
+            return;
+        }
+
+        enemySpawner = GameObject.Find("EnemySpawner").GetComponent<EnemySpawner>();
+        if (enemySpawner == null)
+        {
+            Debug.LogError("EnemySpawner not found");
             return;
         }
 
@@ -46,6 +62,12 @@ public class BaseEnemy : MonoBehaviour, IAttackable, IAttacker
             GetComponent<NavMeshAgent>().SetDestination(transform.position);
             Destroy(gameObject, 3);
         }
+    }
+
+    public virtual void OnDestroy()
+    {
+        gameManager.ModifyResources(resourcesToAdd);
+        enemySpawner.RemoveEnemy(gameObject);
     }
 
     void OnCollisionEnter(Collision collision)
