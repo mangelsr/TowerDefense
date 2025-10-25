@@ -165,4 +165,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 75
-  weakThreshold: 25
+  defaultReceivedDamage: 10
+  defaultDealtDamage: 5

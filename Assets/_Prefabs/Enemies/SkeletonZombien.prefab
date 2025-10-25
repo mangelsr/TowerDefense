@@ -164,6 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3644a9ca336a4a869bbdb75cd166cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objective: {fileID: 0}
-  health: 75
-  weakThreshold: 25
+  health: 100
+  defaultReceivedDamage: 5
+  defaultDealtDamage: 10

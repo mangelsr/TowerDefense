@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class Objective : MonoBehaviour
+public class Objective : MonoBehaviour, IAttackable
 {
-    [SerializeField] int health = 100;
+    [SerializeField] private int health = 100;
+    [SerializeField] private int defaultReceivedDamage = 20;
 
     public delegate void ObjectiveDestroyed();
     public event ObjectiveDestroyed OnObjectiveDestroyed;
@@ -19,8 +20,9 @@ public class Objective : MonoBehaviour
         }
     }
 
-    public void ReceiveDamage(int damage = 20)
+    public void ReceiveDamage(int damage = 0)
     {
-        health -= damage;
+        int receivedDamage = damage == 0 ? defaultReceivedDamage : damage;
+        health -= receivedDamage;
     }
 }
