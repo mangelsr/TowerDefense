@@ -34,7 +34,7 @@ public class UIController : MonoBehaviour
         gameManager.OnModifyResources -= UpdateResources;
     }
 
-    private void ShowWonWaveMenu()
+    public void ShowWonWaveMenu()
     {
         enemiesLabel.text = $"ENEMIES:\t{gameManager.defeatedEnemies}";
         bossesLabel.text = $"BOSSES :\t{gameManager.defeatedBosses}";
@@ -72,23 +72,23 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene(currentScene);
     }
 
-    private void UpdateResources()
+    public void UpdateResources()
     {
         resourcesLabel.text = $"Resources: {gameManager.resources}";
     }
 
-    private void ShowLastEnemyUIMessage()
+    public void ShowLastEnemyUIMessage()
     {
         lastEnemyMessage.SetActive(true);
         Invoke("HideLastEnemyUIMessage", 3);
     }
 
-    private void HideLastEnemyUIMessage()
+    public void HideLastEnemyUIMessage()
     {
         lastEnemyMessage.SetActive(false);
     }
 
-    private void UpdateWave()
+    public void UpdateWave()
     {
         waveLabel.text = $"Wave: {spawnReference.wave}";
     }

@@ -12,6 +12,7 @@ public class BaseEnemy : MonoBehaviour, IAttackable, IAttacker
     private Animator animator;
     protected GameManager gameManager;
     private EnemySpawner enemySpawner;
+    private bool isDead = false;
 
     void OnEnable()
     {
@@ -56,19 +57,18 @@ public class BaseEnemy : MonoBehaviour, IAttackable, IAttacker
 
     void Update()
     {
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
-            animator.SetTrigger("OnDeath");
             GetComponent<NavMeshAgent>().SetDestination(transform.position);
-            Destroy(gameObject, 3);
+            animator.SetTrigger("OnDeath");
+            gameManager.ModifyResources(resourcesToAdd);
+            enemySpawner.RemoveEnemy(gameObject);
+            Destroy(gameObject, 5);
+            isDead = true;
         }
     }
 
-    public virtual void OnDestroy()
-    {
-        gameManager.ModifyResources(resourcesToAdd);
-        enemySpawner.RemoveEnemy(gameObject);
-    }
+    public virtual void OnDestroy() { }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -76,7 +76,7 @@ public class BaseEnemy : MonoBehaviour, IAttackable, IAttacker
         {
             animator.SetBool("IsMoving", false);
             animator.SetTrigger("OnObjectiveReached");
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<NavMeshAgent>().SetDestination(transform.position);
         }
     }
 

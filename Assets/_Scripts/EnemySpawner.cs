@@ -7,15 +7,20 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] public int wave { get; private set; }
     [SerializeField] private List<int> enemiesPerWave;
 
-    private int enemiesCountDuringCurrentWave;
-    private bool waveStarted;
-    private List<GameObject> generatedEnemies;
+    [SerializeField] private int enemiesCountDuringCurrentWave;
+    public bool waveStarted { get; private set; }
+    public List<GameObject> generatedEnemies { get; private set; }
+    private bool hasFinishSpawning = false;
 
     public delegate void WaveState();
     public event WaveState OnWaveStarted;
     public event WaveState OnWaveFinished;
     public event WaveState OnWaveWon;
 
+    void Awake()
+    {
+        generatedEnemies = new List<GameObject>();
+    }
 
     void Start()
     {
@@ -24,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (waveStarted && generatedEnemies.Count == 0)
+        if (waveStarted && hasFinishSpawning && generatedEnemies.Count == 0)
         {
             WinWave();
         }
@@ -51,9 +56,10 @@ public class EnemySpawner : MonoBehaviour
         generatedEnemies.Add(enemy);
         enemiesCountDuringCurrentWave--;
 
-        if (enemiesCountDuringCurrentWave < 0)
+        if (enemiesCountDuringCurrentWave <= 0)
         {
             wave++;
+            hasFinishSpawning = true;
             ConfigureEnemiesCount();
             FinishWave();
             return;
@@ -71,9 +77,10 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void StartWave()
+    public void StartWave()
     {
         waveStarted = true;
+        hasFinishSpawning = false;
         if (OnWaveStarted != null)
         {
             OnWaveStarted();
@@ -86,5 +93,4 @@ public class EnemySpawner : MonoBehaviour
     {
         generatedEnemies.Remove(gameObject);
     }
-
 }
