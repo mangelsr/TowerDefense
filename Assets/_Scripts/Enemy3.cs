@@ -1,8 +1,8 @@
 public class Enemy3 : BaseEnemy
 {
-    public override void OnDestroy()
+    protected override void OnEnemyDeath()
     {
-        base.OnDestroy();
+        base.OnEnemyDeath();
         gameManager.IncreaseDefeatedEnemies();
     }
 }

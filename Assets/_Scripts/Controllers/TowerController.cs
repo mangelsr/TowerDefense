@@ -56,7 +56,7 @@ public class TowerController : MonoBehaviour
             Debug.Log("Creating Tower");
             int towerIndex = (int)selectedTower;
             Vector3 positionToInstantiate = platform.transform.position;
-            positionToInstantiate.y += 0.5f;
+            positionToInstantiate.y += 1f;
             GameObject newTower = Instantiate<GameObject>(towersPrefabs[towerIndex], positionToInstantiate, Quaternion.identity);
             newTower.transform.SetParent(platform.transform);
             instantiatedTowers.Add(newTower);

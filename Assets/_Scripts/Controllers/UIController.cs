@@ -34,6 +34,12 @@ public class UIController : MonoBehaviour
         gameManager.OnModifyResources -= UpdateResources;
     }
 
+    void Start()
+    {
+        UpdateWave();
+        UpdateResources();
+    }
+
     public void ShowWonWaveMenu()
     {
         enemiesLabel.text = $"ENEMIES:\t{gameManager.defeatedEnemies}";

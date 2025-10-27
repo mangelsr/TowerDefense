@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,7 +25,7 @@ public class BaseEnemy : MonoBehaviour, IAttackable, IAttacker
         }
 
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        if (objective == null)
+        if (gameManager == null)
         {
             Debug.LogError("GameManager not found");
             return;
@@ -59,34 +60,24 @@ public class BaseEnemy : MonoBehaviour, IAttackable, IAttacker
     {
         if (health <= 0 && !isDead)
         {
-            GetComponent<NavMeshAgent>().SetDestination(transform.position);
-            animator.SetTrigger("OnDeath");
-            gameManager.ModifyResources(resourcesToAdd);
-            enemySpawner.RemoveEnemy(gameObject);
-            Destroy(gameObject, 5);
-            isDead = true;
+            StartCoroutine(Die());
         }
     }
 
-    public virtual void OnDestroy() { }
-
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Objective")
+        if (collision.gameObject.tag == "Objective" && !isDead)
         {
             animator.SetBool("IsMoving", false);
             animator.SetTrigger("OnObjectiveReached");
             GetComponent<NavMeshAgent>().SetDestination(transform.position);
+            GetComponent<NavMeshAgent>().isStopped = true;
         }
     }
 
     public void DealDamage(int damage = 0)
     {
-        if (objective == null)
-        {
-            animator.SetTrigger("OnObjectiveDestroyed");
-            return;
-        }
+        if (objective == null || isDead) return;
 
         int damageToDeal = damage == 0 ? defaultDealtDamage : damage;
         objective.GetComponent<Objective>().ReceiveDamage(damageToDeal);
@@ -94,14 +85,44 @@ public class BaseEnemy : MonoBehaviour, IAttackable, IAttacker
 
     public void ReceiveDamage(int damage = 0)
     {
+        if (isDead) return;
+
         int damageToReceive = damage == 0 ? defaultReceivedDamage : damage;
         health -= damageToReceive;
     }
 
     public void Stop()
     {
+        if (isDead) return;
+
         animator.SetBool("IsMoving", false);
         animator.SetTrigger("OnObjectiveDestroyed");
         GetComponent<NavMeshAgent>().SetDestination(transform.position);
+        GetComponent<NavMeshAgent>().isStopped = true;
+    }
+
+    private IEnumerator Die()
+    {
+        isDead = true;
+
+        GetComponent<NavMeshAgent>().SetDestination(transform.position);
+        GetComponent<NavMeshAgent>().isStopped = true;
+
+        gameManager.ModifyResources(resourcesToAdd);
+        enemySpawner.RemoveEnemy(gameObject);
+
+        OnEnemyDeath();
+
+        GetComponent<Collider>().enabled = false;
+
+        animator.SetTrigger("OnDeath");
+
+        yield return new WaitForSeconds(5f);
+
+        Destroy(gameObject);
+    }
+
+    protected virtual void OnEnemyDeath()
+    {
     }
 }

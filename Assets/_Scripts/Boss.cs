@@ -1,8 +1,8 @@
 public class Boss : BaseEnemy
 {
-    public override void OnDestroy()
+    protected override void OnEnemyDeath()
     {
-        base.OnDestroy();
+        base.OnEnemyDeath();
         gameManager.IncreaseDefeatedBosses();
     }
 }

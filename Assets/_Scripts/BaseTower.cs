@@ -1,12 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
 
 public class BaseTower : MonoBehaviour
 {
-    public GameObject enemy;
-    [SerializeField] protected GameObject bulletPrefab;
+    [HideInInspector] public GameObject enemy;
     [SerializeField] protected List<GameObject> cannonTips;
 
     void Update()
@@ -20,16 +17,5 @@ public class BaseTower : MonoBehaviour
     }
 
     public virtual void Shoot()
-    {
-        foreach (GameObject tip in cannonTips)
-        {
-            GameObject bullet = Instantiate(bulletPrefab,
-                                    tip.transform.position,
-                                    Quaternion.identity);
-
-            bullet.GetComponent<Bullet>().endPosition = enemy.transform.position;
-        }
-    }
-
-
+    { }
 }

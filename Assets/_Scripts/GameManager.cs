@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [HideInInspector] public int defeatedEnemies { get; private set; }
-    [HideInInspector] public int defeatedBosses { get; private set; }
+    public int defeatedEnemies { get; private set; }
+    public int defeatedBosses { get; private set; }
     [SerializeField] private int _resources = 800;
     public int resources { get => _resources; private set => _resources = value; }
 
