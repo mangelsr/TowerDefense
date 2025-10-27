@@ -712,7 +712,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5335104985522817231}
-  - component: {fileID: 3224192285790124268}
+  - component: {fileID: 9128626423773340494}
   m_Layer: 0
   m_Name: Tower2
   m_TagString: Untagged
@@ -738,7 +738,7 @@ Transform:
   - {fileID: 3151856970313446029}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3224192285790124268
+--- !u!114 &9128626423773340494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -747,11 +747,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9162121901565003801}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3e0dfa3238000a2e87b6edfea513c9d, type: 3}
+  m_Script: {fileID: 11500000, guid: d10e92d462c943450b61336cb2d97c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
-  bulletPrefab: {fileID: 7245731527917163588, guid: 65ca856fbc547ce37a134152ed155f1a, type: 3}
   cannonTips:
   - {fileID: 4401369277275830795}
   - {fileID: 7516349848551243851}
+  bulletPrefab: {fileID: 7245731527917163588, guid: 65ca856fbc547ce37a134152ed155f1a, type: 3}
