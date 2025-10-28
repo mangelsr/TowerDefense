@@ -5,15 +5,19 @@ public class BaseTower : MonoBehaviour
 {
     [HideInInspector] public GameObject enemy;
     [SerializeField] protected List<GameObject> cannonTips;
+    [SerializeField] protected Transform rotatingPart;
 
-    void Update()
+    protected virtual void Update()
     {
         if (enemy != null) Aim();
     }
 
     private void Aim()
     {
-        transform.LookAt(enemy.transform);
+        if (rotatingPart != null)
+            rotatingPart.LookAt(enemy.transform);
+        else
+            transform.LookAt(enemy.transform);
     }
 
     public virtual void Shoot()
