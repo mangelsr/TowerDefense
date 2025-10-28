@@ -50,6 +50,7 @@ MonoBehaviour:
   enemy: {fileID: 0}
   cannonTips:
   - {fileID: 5563696747348896820}
+  rotatingPart: {fileID: 6721382258233236422}
   bulletPrefab: {fileID: 7245731527917163588, guid: 65ca856fbc547ce37a134152ed155f1a, type: 3}
 --- !u!1 &741795050798716900
 GameObject:

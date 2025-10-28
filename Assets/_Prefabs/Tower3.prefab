@@ -4970,9 +4970,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
-  bulletPrefab: {fileID: 0}
   cannonTips:
   - {fileID: 1691559498965231479}
+  rotatingPart: {fileID: 637532436190459522}
   lightingDivisions: 10
   lightingPower: 10
 --- !u!1 &6612267710436357463
