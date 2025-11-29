@@ -28,8 +28,6 @@ The project is intended as a starting point for experimenting with tower defense
 - **Basic game state flow** – Start, in-game, and game-over logic.
 - **Unity-friendly architecture** – Uses standard Unity patterns with components, prefabs, and scriptable configurations.
 
-*(You can expand this section with more details that match your exact implementation: slow towers, AOE damage, different enemy types, etc.)*
-
 ---
 
 ## 🧱 Project Structure
@@ -38,15 +36,13 @@ At a high level, the project follows a typical Unity layout:
 
 - `Assets/`  
   - **Scenes** – Main game scene(s) for running the tower defense level.  
-  - **Scripts** – C# scripts for towers, enemies, wave management, UI, and core gameplay logic.  
-  - **Prefabs** – Reusable towers, enemies, and environment pieces.  
-  - **Art / Shaders** – Materials, textures, and shaders used by the project.
+  - **_Scripts** – C# scripts for towers, enemies, wave management, UI, and core gameplay logic.  
+  - **_Prefabs** – Reusable towers, enemies, and environment pieces.  
+  - **_Models / _Materials** – Materials, textures, and shaders used by the project.
 - `Packages/`  
   Unity package configuration (managed automatically by Unity/Unity Hub).
 - `ProjectSettings/`  
   Unity project configuration: input, graphics, quality settings, etc.
-
-> Exact folder names inside `Assets/` may vary; open the project in Unity to inspect the current structure.
 
 ---
 
@@ -54,8 +50,6 @@ At a high level, the project follows a typical Unity layout:
 
 - **Unity** – Any recent Unity version that can open the project (ideally an LTS release).  
 - **Git** (optional) – To clone the repository.
-
-You can adjust this section to the exact Unity version you use (e.g., *Unity 2021.3 LTS*).
 
 ---
 
